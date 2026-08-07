@@ -18,9 +18,8 @@ jobs:
     - name: checkout code
       uses: actions/checkout@v4
 
-    - name: Setup CUDA (ubuntu)
-      if: runner.os == 'Linux'
-      uses: Jimver/cuda-toolkit@v0.2
+    - name: Setup CUDA
+      uses: Jimver/cuda-toolkit@v0.2.36
       with:
         cuda: '13.1'
         method: 'network'
