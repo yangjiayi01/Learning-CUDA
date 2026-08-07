@@ -1,0 +1,33 @@
+name: Build and test
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup CUDA (ubuntu)
+      if: runner.os == 'Linux'
+      uses: Jimver/cuda-toolkit@v0.2
+      with:
+        cuda: '13.1'
+        method: 'network'
+
+    # NOTE: runtime tests need a GPU; we validate compilation here and run
+    # the full make test on a local RTX 4060 (see README / local_test).
+    - name: Build (compile only)
+      shell: bash
+      run: |
+        make build
