@@ -25,4 +25,5 @@ jobs:
     - name: Build (compile only)
       shell: bash
       run: |
-        make build EXTRA_LIBS="-lcudart"
+        ls /usr/local/cuda/lib64/libcudart* 2>/dev/null || echo "no cudart found"
+        make build EXTRA_LIBS="/usr/local/cuda/lib64/libcudart.so"
