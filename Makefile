@@ -19,9 +19,10 @@ EXTRA_LIBS     	:=
 
 # Compiler & Tester object selection based on PLATFORM
 ifeq ($(PLATFORM),nvidia)
-    CC          	:= nvcc
-    TEST_OBJ    	:= tester/tester_nv.o
+    CC         	:= nvcc
+    TEST_OBJ   	:= tester/tester_nv.o
 	PLATFORM_DEFINE := -DPLATFORM_NVIDIA
+	EXTRA_LIBS		:= -lcudart
 else ifeq ($(PLATFORM),iluvatar)
     CC          	:= clang++
 	CFLAGS          := -std=c++17 -O3
